@@ -1,0 +1,83 @@
+0 verbose cli /home/userland/.nvm/versions/node/v23.9.0/bin/node /home/userland/.nvm/versions/node/v23.9.0/bin/npm
+1 info using npm@10.9.2
+2 info using node@v23.9.0
+3 silly config load:file:/home/userland/.nvm/versions/node/v23.9.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/home/userland/.npmrc
+5 silly config load:file:/home/userland/.nvm/versions/node/v23.9.0/etc/npmrc
+6 verbose title npm install solc
+7 verbose argv "install" "--global" "solc"
+8 verbose logfile logs-max:10 dir:/home/userland/.npm/_logs/2025-03-08T07_57_52_882Z-
+9 verbose logfile /home/userland/.npm/_logs/2025-03-08T07_57_52_882Z-debug-0.log
+10 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+11 silly logfile done cleaning log files
+12 silly idealTree buildDeps
+13 silly fetch manifest solc@*
+14 silly packumentCache full:https://registry.npmjs.org/solc cache-miss
+15 http fetch GET 200 https://registry.npmjs.org/solc 1505ms (cache updated)
+16 silly packumentCache full:https://registry.npmjs.org/solc set size:undefined disposed:false
+17 silly placeDep ROOT solc@0.8.28 OK for:  want: *
+18 silly fetch manifest command-exists@^1.2.8
+19 silly packumentCache full:https://registry.npmjs.org/command-exists cache-miss
+20 silly fetch manifest commander@^8.1.0
+21 silly packumentCache full:https://registry.npmjs.org/commander cache-miss
+22 silly fetch manifest follow-redirects@^1.12.1
+23 silly packumentCache full:https://registry.npmjs.org/follow-redirects cache-miss
+24 silly fetch manifest js-sha3@0.8.0
+25 silly packumentCache full:https://registry.npmjs.org/js-sha3 cache-miss
+26 silly fetch manifest memorystream@^0.3.1
+27 silly packumentCache full:https://registry.npmjs.org/memorystream cache-miss
+28 http fetch GET 200 https://registry.npmjs.org/command-exists 552ms (cache updated)
+29 silly packumentCache full:https://registry.npmjs.org/command-exists set size:undefined disposed:false
+30 silly fetch manifest semver@^5.5.0
+31 silly packumentCache full:https://registry.npmjs.org/semver cache-miss
+32 http fetch GET 200 https://registry.npmjs.org/memorystream 603ms (cache updated)
+33 silly packumentCache full:https://registry.npmjs.org/memorystream set size:undefined disposed:false
+34 silly fetch manifest tmp@0.0.33
+35 silly packumentCache full:https://registry.npmjs.org/tmp cache-miss
+36 http fetch GET 200 https://registry.npmjs.org/follow-redirects 613ms (cache updated)
+37 silly packumentCache full:https://registry.npmjs.org/follow-redirects set size:undefined disposed:false
+38 http fetch GET 200 https://registry.npmjs.org/js-sha3 672ms (cache updated)
+39 silly packumentCache full:https://registry.npmjs.org/js-sha3 set size:undefined disposed:false
+40 http fetch GET 200 https://registry.npmjs.org/commander 708ms (cache updated)
+41 silly packumentCache full:https://registry.npmjs.org/commander set size:undefined disposed:false
+42 http fetch GET 200 https://registry.npmjs.org/semver 159ms (cache updated)
+43 silly packumentCache full:https://registry.npmjs.org/semver set size:undefined disposed:false
+44 http fetch GET 200 https://registry.npmjs.org/tmp 151ms (cache updated)
+45 silly packumentCache full:https://registry.npmjs.org/tmp set size:undefined disposed:false
+46 silly placeDep node_modules/solc command-exists@1.2.9 OK for: solc@0.8.28 want: ^1.2.8
+47 silly placeDep node_modules/solc commander@8.3.0 OK for: solc@0.8.28 want: ^8.1.0
+48 silly placeDep node_modules/solc follow-redirects@1.15.9 OK for: solc@0.8.28 want: ^1.12.1
+49 silly placeDep node_modules/solc js-sha3@0.8.0 OK for: solc@0.8.28 want: 0.8.0
+50 silly placeDep node_modules/solc memorystream@0.3.1 OK for: solc@0.8.28 want: ^0.3.1
+51 silly placeDep node_modules/solc semver@5.7.2 OK for: solc@0.8.28 want: ^5.5.0
+52 silly placeDep node_modules/solc tmp@0.0.33 OK for: solc@0.8.28 want: 0.0.33
+53 silly fetch manifest os-tmpdir@~1.0.2
+54 silly packumentCache full:https://registry.npmjs.org/os-tmpdir cache-miss
+55 http fetch GET 200 https://registry.npmjs.org/os-tmpdir 195ms (cache updated)
+56 silly packumentCache full:https://registry.npmjs.org/os-tmpdir set size:undefined disposed:false
+57 silly placeDep node_modules/solc os-tmpdir@1.0.2 OK for: tmp@0.0.33 want: ~1.0.2
+58 silly reify moves {}
+59 http cache commander@https://registry.npmjs.org/commander/-/commander-8.3.0.tgz 0ms (cache hit)
+60 http cache semver@https://registry.npmjs.org/semver/-/semver-5.7.2.tgz 0ms (cache hit)
+61 http cache os-tmpdir@https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz 0ms (cache hit)
+62 http cache follow-redirects@https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz 0ms (cache hit)
+63 http cache memorystream@https://registry.npmjs.org/memorystream/-/memorystream-0.3.1.tgz 0ms (cache hit)
+64 http cache command-exists@https://registry.npmjs.org/command-exists/-/command-exists-1.2.9.tgz 0ms (cache hit)
+65 http cache tmp@https://registry.npmjs.org/tmp/-/tmp-0.0.33.tgz 0ms (cache hit)
+66 http cache js-sha3@https://registry.npmjs.org/js-sha3/-/js-sha3-0.8.0.tgz 0ms (cache hit)
+67 http cache solc@https://registry.npmjs.org/solc/-/solc-0.8.28.tgz 0ms (cache hit)
+68 silly ADD node_modules/solc
+69 silly ADD node_modules/solc/node_modules/os-tmpdir
+70 silly ADD node_modules/solc/node_modules/tmp
+71 silly ADD node_modules/solc/node_modules/semver
+72 silly ADD node_modules/solc/node_modules/memorystream
+73 silly ADD node_modules/solc/node_modules/js-sha3
+74 silly ADD node_modules/solc/node_modules/follow-redirects
+75 silly ADD node_modules/solc/node_modules/commander
+76 silly ADD node_modules/solc/node_modules/command-exists
+77 verbose cwd /home/userland
+78 verbose os Linux 5.15.148-android13-8-29539737-abS918BXXS7CXL2
+79 verbose node v23.9.0
+80 verbose npm  v10.9.2
+81 verbose exit 0
+82 info ok

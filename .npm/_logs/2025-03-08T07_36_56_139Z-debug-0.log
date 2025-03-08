@@ -1,0 +1,144 @@
+0 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', '-g', 'solc' ]
+1 info using npm@8.5.1
+2 info using node@v12.22.9
+3 timing npm:load:whichnode Completed in 2ms
+4 timing config:load:defaults Completed in 5ms
+5 timing config:load:file:/usr/share/nodejs/npm/npmrc Completed in 6ms
+6 timing config:load:builtin Completed in 6ms
+7 timing config:load:cli Completed in 3ms
+8 timing config:load:env Completed in 1ms
+9 timing config:load:project Completed in 2ms
+10 timing config:load:file:/home/userland/.npmrc Completed in 0ms
+11 timing config:load:user Completed in 1ms
+12 timing config:load:file:/etc/npmrc Completed in 1ms
+13 timing config:load:global Completed in 1ms
+14 timing config:load:validate Completed in 0ms
+15 timing config:load:credentials Completed in 1ms
+16 timing config:load:setEnvs Completed in 1ms
+17 timing config:load Completed in 22ms
+18 timing npm:load:configload Completed in 22ms
+19 timing npm:load:setTitle Completed in 0ms
+20 timing config:load:flatten Completed in 4ms
+21 timing npm:load:display Completed in 6ms
+22 verbose logfile /home/userland/.npm/_logs/2025-03-08T07_36_56_139Z-debug-0.log
+23 timing npm:load:logFile Completed in 7ms
+24 timing npm:load:timers Completed in 0ms
+25 timing npm:load:configScope Completed in 0ms
+26 timing npm:load Completed in 39ms
+27 timing arborist:ctor Completed in 1ms
+28 timing idealTree:init Completed in 4ms
+29 timing idealTree:userRequests Completed in 3ms
+30 silly idealTree buildDeps
+31 silly fetch manifest solc@*
+32 http fetch GET 200 https://registry.npmjs.org/solc 1592ms (cache miss)
+33 silly placeDep ROOT solc@0.8.28 OK for:  want: *
+34 silly fetch manifest command-exists@^1.2.8
+35 silly fetch manifest commander@^8.1.0
+36 silly fetch manifest follow-redirects@^1.12.1
+37 silly fetch manifest js-sha3@0.8.0
+38 silly fetch manifest memorystream@^0.3.1
+39 silly fetch manifest semver@^5.5.0
+40 silly fetch manifest tmp@0.0.33
+41 http fetch GET 200 https://registry.npmjs.org/command-exists 163ms (cache miss)
+42 http fetch GET 200 https://registry.npmjs.org/commander 647ms (cache miss)
+43 http fetch GET 200 https://registry.npmjs.org/js-sha3 695ms (cache miss)
+44 http fetch GET 200 https://registry.npmjs.org/follow-redirects 727ms (cache miss)
+45 http fetch GET 200 https://registry.npmjs.org/memorystream 801ms (cache miss)
+46 http fetch GET 200 https://registry.npmjs.org/tmp 930ms (cache miss)
+47 http fetch GET 200 https://registry.npmjs.org/semver 1001ms (cache miss)
+48 timing idealTree:#root Completed in 2615ms
+49 silly placeDep node_modules/solc command-exists@1.2.9 OK for: solc@0.8.28 want: ^1.2.8
+50 silly placeDep node_modules/solc commander@8.3.0 OK for: solc@0.8.28 want: ^8.1.0
+51 silly placeDep node_modules/solc follow-redirects@1.15.9 OK for: solc@0.8.28 want: ^1.12.1
+52 silly placeDep node_modules/solc js-sha3@0.8.0 OK for: solc@0.8.28 want: 0.8.0
+53 silly placeDep node_modules/solc memorystream@0.3.1 OK for: solc@0.8.28 want: ^0.3.1
+54 silly placeDep node_modules/solc semver@5.7.2 OK for: solc@0.8.28 want: ^5.5.0
+55 silly placeDep node_modules/solc tmp@0.0.33 OK for: solc@0.8.28 want: 0.0.33
+56 silly fetch manifest os-tmpdir@~1.0.2
+57 http fetch GET 200 https://registry.npmjs.org/os-tmpdir 167ms (cache miss)
+58 timing idealTree:node_modules/solc Completed in 188ms
+59 timing idealTree:node_modules/solc/node_modules/command-exists Completed in 1ms
+60 timing idealTree:node_modules/solc/node_modules/commander Completed in 0ms
+61 timing idealTree:node_modules/solc/node_modules/follow-redirects Completed in 0ms
+62 timing idealTree:node_modules/solc/node_modules/js-sha3 Completed in 0ms
+63 timing idealTree:node_modules/solc/node_modules/memorystream Completed in 0ms
+64 timing idealTree:node_modules/solc/node_modules/semver Completed in 0ms
+65 silly placeDep node_modules/solc os-tmpdir@1.0.2 OK for: tmp@0.0.33 want: ~1.0.2
+66 timing idealTree:node_modules/solc/node_modules/tmp Completed in 2ms
+67 timing idealTree:node_modules/solc/node_modules/os-tmpdir Completed in 0ms
+68 timing idealTree:buildDeps Completed in 2808ms
+69 timing idealTree:fixDepFlags Completed in 1ms
+70 timing idealTree Completed in 2819ms
+71 timing reify:loadTrees Completed in 2821ms
+72 timing reify:diffTrees Completed in 1ms
+73 silly reify moves {}
+74 timing reify:retireShallow Completed in 0ms
+75 timing reify:createSparse Completed in 6ms
+76 timing reify:loadBundles Completed in 0ms
+77 silly audit bulk request {
+77 silly audit   solc: [ '0.8.28' ],
+77 silly audit   'command-exists': [ '1.2.9' ],
+77 silly audit   commander: [ '8.3.0' ],
+77 silly audit   'follow-redirects': [ '1.15.9' ],
+77 silly audit   'js-sha3': [ '0.8.0' ],
+77 silly audit   memorystream: [ '0.3.1' ],
+77 silly audit   semver: [ '5.7.2' ],
+77 silly audit   tmp: [ '0.0.33' ],
+77 silly audit   'os-tmpdir': [ '1.0.2' ]
+77 silly audit }
+78 silly tarball no local data for solc@https://registry.npmjs.org/solc/-/solc-0.8.28.tgz. Extracting by manifest.
+79 silly tarball no local data for tmp@https://registry.npmjs.org/tmp/-/tmp-0.0.33.tgz. Extracting by manifest.
+80 silly tarball no local data for follow-redirects@https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz. Extracting by manifest.
+81 silly tarball no local data for commander@https://registry.npmjs.org/commander/-/commander-8.3.0.tgz. Extracting by manifest.
+82 silly tarball no local data for os-tmpdir@https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz. Extracting by manifest.
+83 silly tarball no local data for semver@https://registry.npmjs.org/semver/-/semver-5.7.2.tgz. Extracting by manifest.
+84 silly tarball no local data for memorystream@https://registry.npmjs.org/memorystream/-/memorystream-0.3.1.tgz. Extracting by manifest.
+85 silly tarball no local data for js-sha3@https://registry.npmjs.org/js-sha3/-/js-sha3-0.8.0.tgz. Extracting by manifest.
+86 silly tarball no local data for command-exists@https://registry.npmjs.org/command-exists/-/command-exists-1.2.9.tgz. Extracting by manifest.
+87 http fetch GET 200 https://registry.npmjs.org/tmp/-/tmp-0.0.33.tgz 199ms (cache miss)
+88 timing reifyNode:node_modules/solc/node_modules/tmp Completed in 219ms
+89 http fetch GET 200 https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz 207ms (cache miss)
+90 timing reifyNode:node_modules/solc/node_modules/follow-redirects Completed in 231ms
+91 http fetch GET 200 https://registry.npmjs.org/semver/-/semver-5.7.2.tgz 209ms (cache miss)
+92 timing reifyNode:node_modules/solc/node_modules/semver Completed in 246ms
+93 http fetch GET 200 https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz 216ms (cache miss)
+94 timing reifyNode:node_modules/solc/node_modules/os-tmpdir Completed in 250ms
+95 http fetch GET 200 https://registry.npmjs.org/commander/-/commander-8.3.0.tgz 225ms (cache miss)
+96 timing reifyNode:node_modules/solc/node_modules/commander Completed in 253ms
+97 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 291ms
+98 timing auditReport:getReport Completed in 292ms
+99 silly audit report {}
+100 timing auditReport:init Completed in 0ms
+101 timing reify:audit Completed in 294ms
+102 http fetch GET 200 https://registry.npmjs.org/memorystream/-/memorystream-0.3.1.tgz 589ms (cache miss)
+103 timing reifyNode:node_modules/solc/node_modules/memorystream Completed in 629ms
+104 http fetch GET 200 https://registry.npmjs.org/js-sha3/-/js-sha3-0.8.0.tgz 604ms (cache miss)
+105 timing reifyNode:node_modules/solc/node_modules/js-sha3 Completed in 648ms
+106 http fetch GET 200 https://registry.npmjs.org/command-exists/-/command-exists-1.2.9.tgz 964ms (cache miss)
+107 timing reifyNode:node_modules/solc/node_modules/command-exists Completed in 1012ms
+108 http fetch GET 200 https://registry.npmjs.org/solc/-/solc-0.8.28.tgz 2464ms (cache miss)
+109 timing reifyNode:node_modules/solc Completed in 2478ms
+110 timing reify:unpack Completed in 2478ms
+111 timing reify:unretire Completed in 1ms
+112 timing build:queue Completed in 2ms
+113 timing build:link:node_modules/solc/node_modules/semver Completed in 2ms
+114 timing build:link:node_modules/solc Completed in 3ms
+115 timing build:link Completed in 3ms
+116 timing build:deps Completed in 5ms
+117 timing build Completed in 5ms
+118 timing reify:build Completed in 5ms
+119 timing reify:trash Completed in 0ms
+120 timing reify Completed in 5335ms
+121 silly ADD node_modules/solc
+122 silly ADD node_modules/solc/node_modules/os-tmpdir
+123 silly ADD node_modules/solc/node_modules/tmp
+124 silly ADD node_modules/solc/node_modules/semver
+125 silly ADD node_modules/solc/node_modules/memorystream
+126 silly ADD node_modules/solc/node_modules/js-sha3
+127 silly ADD node_modules/solc/node_modules/follow-redirects
+128 silly ADD node_modules/solc/node_modules/commander
+129 silly ADD node_modules/solc/node_modules/command-exists
+130 timing command:install Completed in 5342ms
+131 verbose exit 0
+132 timing npm Completed in 6799ms
+133 info ok
