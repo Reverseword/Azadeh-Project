@@ -1,0 +1,1180 @@
+<!DOCTYPE html><html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحلیل تعاملی هوش مصنوعی | نوآوران درمان اطلس</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root {
+--primary: #0063a7;
+--secondary: #00a0e3;
+--accent: #ff6b00;
+--light: #f5f5f5;
+--dark: #333333;
+--success: #28a745;
+--warning: #ffc107;
+--danger: #dc3545;
+}
+
+* {
+box-sizing: border-box;
+font-family: 'Tahoma', 'Arial', sans-serif;
+}
+
+body {
+margin: 0;
+padding: 0;
+background-color: var(--light);
+color: var(--dark);
+font-size: 16px;
+line-height: 1.6;
+}
+
+.container {
+max-width: 1200px;
+margin: 0 auto;
+padding: 20px;
+}
+
+header {
+background-color: var(--primary);
+color: white;
+padding: 15px 0;
+text-align: center;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+position: relative;
+}
+
+header h1 {
+margin: 0;
+font-size: 2em;
+}
+
+header p {
+margin: 5px 0 0 0;
+opacity: 0.8;
+}
+
+.logo-container {
+position: absolute;
+top: 15px;
+right: 15px;
+}
+
+.logo {
+height: 50px;
+width: auto;
+}
+
+.tabs {
+display: flex;
+margin: 20px 0;
+border-bottom: 2px solid var(--primary);
+}
+
+.tab {
+padding: 10px 20px;
+background-color: #eee;
+cursor: pointer;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+margin-left: 5px;
+transition: background-color 0.3s;
+}
+
+.tab.active {
+background-color: var(--primary);
+color: white;
+}
+
+.tab-content {
+display: none;
+padding: 20px;
+background-color: white;
+border-radius: 5px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content.active {
+display: block;
+}
+
+.question-container {
+margin-bottom: 15px;
+background-color: #f9f9f9;
+padding: 15px;
+border-radius: 5px;
+border-right: 4px solid var(--secondary);
+}
+
+.question-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+}
+
+input, select, textarea, button {
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #ddd;
+font-size: 1em;
+width: 100%;
+margin-bottom: 10px;
+}
+
+button {
+background-color: var(--primary);
+color: white;
+border: none;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+button:hover {
+background-color: var(--secondary);
+}
+
+button.secondary {
+background-color: var(--secondary);
+}
+
+button.accent {
+background-color: var(--accent);
+}
+
+.options-container {
+margin-top: 10px;
+}
+
+.option-item {
+display: flex;
+align-items: center;
+margin-bottom: 5px;
+}
+
+.option-item input {
+width: 80%;
+margin-left: 10px;
+margin-bottom: 0;
+}
+
+.option-item button {
+width: 30px;
+height: 30px;
+padding: 0;
+background-color: var(--danger);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.response-container {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+margin-top: 20px;
+}
+
+.response-card {
+flex: 1 1 300px;
+background-color: white;
+padding: 15px;
+border-radius: 5px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+height: 300px;
+margin-top: 20px;
+}
+
+.button-container {
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
+}
+
+.button-container button {
+width: auto;
+padding: 10px 20px;
+}
+
+.qr-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 30px 0;
+}
+
+#qrcode {
+margin-bottom: 15px;
+background-color: white;
+padding: 15px;
+border-radius: 5px;
+}
+
+.response-url {
+font-size: 1.2em;
+padding: 10px;
+background-color: #f9f9f9;
+border-radius: 5px;
+text-align: center;
+width: 100%;
+max-width: 500px;
+direction: ltr;
+}
+
+.question-list {
+margin-top: 20px;
+}
+
+.list-item {
+padding: 15px;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.list-item:hover {
+background-color: #f5f5f5;
+}
+
+.list-item.active {
+background-color: #e9f7ff;
+border-right: 4px solid var(--secondary);
+}
+
+#threejs-container {
+width: 100%;
+height: 300px;
+background-color: #000;
+border-radius: 5px;
+overflow: hidden;
+margin-top: 20px;
+}
+
+.summary-section {
+margin-top: 30px;
+padding: 20px;
+background-color: white;
+border-radius: 5px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.summary-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 2px solid var(--primary);
+padding-bottom: 10px;
+margin-bottom: 15px;
+}
+
+.summary-content {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+}
+
+.summary-card {
+flex: 1 1 300px;
+background-color: #f9f9f9;
+padding: 15px;
+border-radius: 5px;
+border-right: 4px solid var(--secondary);
+}
+
+.loader {
+border: 5px solid #f3f3f3;
+border-top: 5px solid var(--primary);
+border-radius: 50%;
+width: 30px;
+height: 30px;
+animation: spin 1s linear infinite;
+margin: 20px auto;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.hidden {
+display: none;
+}
+
+.alert {
+padding: 10px 15px;
+border-radius: 5px;
+margin-bottom: 15px;
+}
+
+.alert-success {
+background-color: #d4edda;
+color: #155724;
+border: 1px solid #c3e6cb;
+}
+
+.alert-warning {
+background-color: #fff3cd;
+color: #856404;
+border: 1px solid #ffeeba;
+}
+
+.alert-info {
+background-color: #d1ecf1;
+color: #0c5460;
+border: 1px solid #bee5eb;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+.tabs {
+flex-direction: column;
+}
+
+.tab {
+margin-bottom: 5px;
+border-radius: 5px;
+}
+
+.button-container {
+flex-direction: column;
+gap: 10px;
+}
+
+.button-container button {
+width: 100%;
+}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo-container">
+<img src="/api/placeholder/100/50" alt="لوگوی نوآوران درمان اطلس" class="logo">
+</div>
+<h1>تحلیل تعاملی هوش مصنوعی</h1>
+<p>نوآوران درمان اطلس</p>
+</header>
+
+<div class="container">
+<div class="tabs">
+<div class="tab active" data-tab="setup">تنظیم سوالات</div>
+<div class="tab" data-tab="collect">جمع آوری پاسخ‌ها</div>
+<div class="tab" data-tab="analyze">تحلیل و گزارش</div>
+<div class="tab" data-tab="present">ارائه نتایج</div>
+</div>
+
+<div id="setup" class="tab-content active">
+<h2>تنظیم سوالات برای ارزیابی استراتژیک</h2>
+<p>سوالات خود را برای ارزیابی استراتژیک شرکت در سال آینده با رویکرد تغییر وارد کنید:</p>
+
+<div id="questions-container">
+<!-- اینجا با جاوااسکریپت پر می‌شود -->
+</div>
+
+<button id="add-question">افزودن سوال جدید</button>
+
+<div class="button-container">
+<button id="load-preset">بارگذاری سوالات پیش‌فرض</button>
+<button id="save-questions" class="accent">ذخیره سوالات</button>
+<button id="go-to-collect" class="secondary">ادامه به مرحله جمع‌آوری</button>
+</div>
+</div>
+
+<div id="collect" class="tab-content">
+<h2>جمع‌آوری پاسخ‌ها</h2>
+<p>برای شروع جمع‌آوری پاسخ‌ها، لینک زیر را با شرکت‌کنندگان به اشتراک بگذارید:</p>
+
+<div class="qr-container">
+<div id="qrcode">
+<img src="/api/placeholder/200/200" alt="QR Code">
+</div>
+<div class="response-url" id="response-url">http://localhost:8000</div>
+<button id="copy-url">کپی لینک</button>
+</div>
+
+<div class="alert alert-info">
+<p>شرکت‌کنندگان می‌توانند با اسکن کد QR یا وارد کردن لینک فوق، به سوالات پاسخ دهند.</p>
+</div>
+
+<h3>وضعیت پاسخ‌ها</h3>
+<div id="response-status">
+<p>پاسخ‌های دریافت شده: <span id="response-count">0</span> از <span id="participant-count">60</span></p>
+<div class="progress">
+<div class="progress-bar" style="width: 0%;"></div>
+</div>
+</div>
+
+<div class="button-container">
+<button id="go-to-setup" class="secondary">بازگشت به تنظیمات</button>
+<button id="view-responses">مشاهده پاسخ‌های دریافتی</button>
+<button id="go-to-analyze" class="accent">ادامه به مرحله تحلیل</button>
+</div>
+</div>
+
+<div id="analyze" class="tab-content">
+<h2>تحلیل هوشمند پاسخ‌ها</h2>
+<p>در این بخش، هوش مصنوعی به تحلیل پاسخ‌های دریافتی می‌پردازد:</p>
+
+<div id="analysis-in-progress" class="hidden">
+<div class="loader"></div>
+<p class="text-center">در حال تحلیل داده‌ها با استفاده از هوش مصنوعی...</p>
+</div>
+
+<div id="analysis-complete">
+<div class="alert alert-success">
+<p>تحلیل با موفقیت انجام شد. نتایج آماده نمایش است.</p>
+</div>
+
+<div class="chart-container">
+<canvas id="summary-chart"></canvas>
+</div>
+
+<div class="response-container">
+<div class="response-card">
+<h3>نقاط قوت</h3>
+<ul id="strengths-list">
+<li>کیفیت بالای محصولات و تجهیزات پزشکی</li>
+<li>سابقه درخشان در ارائه خدمات پس از فروش</li>
+<li>کارشناسان متخصص در زمینه تجهیزات پزشکی</li>
+</ul>
+</div>
+
+<div class="response-card">
+<h3>فرصت‌های بهبود</h3>
+<ul id="opportunities-list">
+<li>توسعه سیستم‌های مبتنی بر هوش مصنوعی</li>
+<li>گسترش بازار به حوزه‌های جدید پزشکی</li>
+<li>بهبود فرآیندهای تامین و لجستیک</li>
+</ul>
+</div>
+
+<div class="response-card">
+<h3>اولویت‌های استراتژیک</h3>
+<ul id="priorities-list">
+<li>توسعه محصولات مبتنی بر هوش مصنوعی</li>
+<li>افزایش سهم بازار در بخش تصویربرداری پزشکی</li>
+<li>بهبود زیرساخت‌های دیجیتال شرکت</li>
+</ul>
+</div>
+</div>
+
+<div id="threejs-container"></div>
+
+<div class="button-container">
+<button id="go-to-collect-from-analyze" class="secondary">بازگشت به جمع‌آوری</button>
+<button id="regenerate-analysis">تحلیل مجدد داده‌ها</button>
+<button id="go-to-present" class="accent">ادامه به مرحله ارائه</button>
+</div>
+</div>
+</div>
+
+<div id="present" class="tab-content">
+<h2>ارائه نتایج تحلیل استراتژیک</h2>
+<p>جمع‌بندی نتایج برای ارائه در جلسه:</p>
+
+<div class="summary-section">
+<div class="summary-header">
+<h3>چشم‌انداز استراتژیک سال آینده</h3>
+<span>نوآوران درمان اطلس</span>
+</div>
+
+<div class="summary-content">
+<div class="summary-card">
+<h4>مسیر استراتژیک</h4>
+<p id="strategy-summary">براساس تحلیل پاسخ‌های دریافتی، مسیر استراتژیک شرکت در سال آینده باید بر توسعه فناوری‌های نوین در حوزه تصویربرداری پزشکی با تمرکز بر هوش مصنوعی متمرکز باشد. ادغام فناوری‌های تشخیصی هوشمند و سیستم‌های پشتیبانی تصمیم در محصولات وارداتی می‌تواند مزیت رقابتی شرکت را افزایش دهد.</p>
+</div>
+
+<div class="summary-card">
+<h4>اقدامات کلیدی</h4>
+<ol id="key-actions">
+<li>ایجاد واحد تحقیق و توسعه تخصصی در زمینه هوش مصنوعی</li>
+<li>همکاری با شرکت‌های بین‌المللی پیشرو در زمینه تشخیص هوشمند تصاویر پزشکی</li>
+<li>آموزش نیروی انسانی در زمینه‌های هوش مصنوعی و تحلیل داده</li>
+<li>طراحی و پیاده‌سازی پلتفرم ابری برای ارائه خدمات تحلیل تصاویر پزشکی</li>
+<li>توسعه اپلیکیشن‌های موبایل برای پزشکان و متخصصان برای دسترسی به خدمات هوشمند</li>
+</ol>
+</div>
+</div>
+
+<div class="chart-container">
+<canvas id="strategy-chart"></canvas>
+</div>
+
+<h4>تحلیل احساسات شرکت‌کنندگان</h4>
+<div class="chart-container">
+<canvas id="sentiment-chart"></canvas>
+</div>
+</div>
+
+<div class="button-container">
+<button id="go-to-analyze-from-present" class="secondary">بازگشت به تحلیل</button>
+<button id="export-report" class="accent">دانلود گزارش کامل</button>
+</div>
+</div>
+</div>
+
+<script>
+// متغیرهای اصلی برنامه
+let questions = [];
+let responses = [];
+let currentTab = 'setup';
+let participantCount = 60;
+let analysisComplete = false;
+
+// تنظیم سوالات پیش‌فرض
+const presetQuestions = [
+{
+id: 1,
+text: "مهم‌ترین چالش شرکت نوآوران درمان اطلس در سال آینده چیست؟",
+type: "multiple",
+options: [
+"تامین تجهیزات با کیفیت",
+"رقابت در بازار",
+"توسعه فناوری‌های جدید",
+"مدیریت هزینه‌ها",
+"آموزش و توسعه نیروی انسانی"
+]
+},
+{
+id: 2,
+text: "کدام حوزه از فناوری هوش مصنوعی برای شرکت ما اولویت دارد؟",
+type: "multiple",
+options: [
+"تشخیص هوشمند در تصاویر پزشکی",
+"مدیریت هوشمند موجودی",
+"پشتیبانی مشتری با چت‌بات",
+"پیش‌بینی نیازهای بازار",
+"بهینه‌سازی فرآیندهای داخلی"
+]
+},
+{
+id: 3,
+text: "میزان آمادگی شرکت برای تحول دیجیتال را چگونه ارزیابی می‌کنید؟",
+type: "rating",
+options: ["1", "2", "3", "4", "5"]
+},
+{
+id: 4,
+text: "کدام یک از محصولات فعلی شرکت پتانسیل بیشتری برای ادغام با هوش مصنوعی دارند؟",
+type: "multiple",
+options: [
+"تجهیزات تصویربرداری دندانپزشکی",
+"سیستم‌های تصویربرداری پزشکی",
+"تجهیزات لاپاروسکوپی",
+"سیستم‌های مدیریت اطلاعات پزشکی",
+"تجهیزات آزمایشگاهی"
+]
+},
+{
+id: 5,
+text: "مهم‌ترین مزیت رقابتی شرکت نوآوران درمان اطلس در بازار چیست؟",
+type: "multiple",
+options: [
+"کیفیت محصولات",
+"قیمت رقابتی",
+"خدمات پس از فروش",
+"دانش فنی تیم",
+"تنوع محصولات"
+]
+},
+{
+id: 6,
+text: "بزرگترین فرصت برای رشد شرکت در سال آینده چیست؟",
+type: "text"
+},
+{
+id: 7,
+text: "چه کمبودهایی در زمینه دانش فنی و مهارت‌ها در شرکت وجود دارد؟",
+type: "text"
+},
+{
+id: 8,
+text: "کدام یک از استراتژی‌های زیر باید در اولویت قرار گیرد؟",
+type: "multiple",
+options: [
+"توسعه محصولات جدید",
+"بهبود محصولات موجود",
+"گسترش بازار داخلی",
+"ورود به بازارهای بین‌المللی",
+"ادغام با شرکت‌های همکار"
+]
+},
+{
+id: 9,
+text: "میزان رضایت شما از فرآیندهای فعلی شرکت چقدر است؟",
+type: "rating",
+options: ["1", "2", "3", "4", "5"]
+},
+{
+id: 10,
+text: "کدام فناوری جدید بیشترین تاثیر را بر صنعت تجهیزات پزشکی خواهد داشت؟",
+type: "multiple",
+options: [
+"هوش مصنوعی",
+"اینترنت اشیا",
+"رباتیک",
+"واقعیت افزوده",
+"چاپ سه بعدی"
+]
+},
+{
+id: 11,
+text: "چه موانعی برای اجرای تحول دیجیتال در شرکت وجود دارد؟",
+type: "multiple",
+options: [
+"کمبود بودجه",
+"مقاومت در برابر تغییر",
+"فقدان مهارت‌های لازم",
+"زیرساخت‌های ناکافی",
+"عدم حمایت مدیریت ارشد"
+]
+},
+{
+id: 12,
+text: "در زمینه ارتباط با مشتری، کدام یک باید در اولویت قرار گیرد؟",
+type: "multiple",
+options: [
+"بهبود خدمات پس از فروش",
+"آموزش مشتریان",
+"نظرسنجی مداوم",
+"پلتفرم آنلاین خدمات",
+"ارتباط شخصی‌سازی شده"
+]
+},
+{
+id: 13,
+text: "مهم‌ترین شاخص عملکرد برای سنجش موفقیت تحول دیجیتال چیست؟",
+type: "multiple",
+options: [
+"افزایش درآمد",
+"کاهش هزینه‌ها",
+"افزایش رضایت مشتری",
+"بهبود کارایی فرآیندها",
+"نوآوری در محصولات و خدمات"
+]
+},
+{
+id: 14,
+text: "چه پیشنهادی برای بهبود استراتژی شرکت در سال آینده دارید؟",
+type: "text"
+}
+];
+
+// تنظیم داده‌های شبیه سازی شده پاسخ‌ها
+const simulatedResponses = [
+// چند پاسخ شبیه‌سازی شده به عنوان مثال
+{
+timestamp: new Date(),
+answers: {
+1: "توسعه فناوری‌های جدید",
+2: "تشخیص هوشمند در تصاویر پزشکی",
+3: "3",
+4: "سیستم‌های تصویربرداری پزشکی",
+5: "کیفیت محصولات",
+6: "ادغام هوش مصنوعی در تجهیزات تصویربرداری",
+7: "کمبود متخصصان هوش مصنوعی",
+8: "توسعه محصولات جدید",
+9: "4",
+10: "هوش مصنوعی",
+11: "فقدان مهارت‌های لازم",
+12: "پلتفرم آنلاین خدمات",
+13: "نوآوری در محصولات و خدمات",
+14: "تمرکز بر آموزش کارکنان در زمینه هوش مصنوعی"
+}
+}
+];
+
+// کارکردهای اصلی
+document.addEventListener('DOMContentLoaded', function() {
+// تنظیم تب‌ها
+document.querySelectorAll('.tab').forEach(tab => {
+tab.addEventListener('click', function() {
+switchTab(this.dataset.tab);
+});
+});
+
+// دکمه اضافه کردن سوال
+document.getElementById('add-question').addEventListener('click', addNewQuestion);
+
+// دکمه بارگذاری سوالات پیش‌فرض
+document.getElementById('load-preset').addEventListener('click', loadPresetQuestions);
+
+// دکمه کپی لینک
+document.getElementById('copy-url').addEventListener('click', copyUrl);
+
+// دکمه ذخیره سوالات
+document.getElementById('save-questions').addEventListener('click', saveQuestions);
+
+// دکمه‌های ناوبری بین تب‌ها
+document.getElementById('go-to-collect').addEventListener('click', () => switchTab('collect'));
+document.getElementById('go-to-setup').addEventListener('click', () => switchTab('setup'));
+document.getElementById('go-to-analyze').addEventListener('click', () => { 
+switchTab('analyze');
+simulateAnalysis();
+});
+document.getElementById('go-to-collect-from-analyze').addEventListener('click', () => switchTab('collect'));
+document.getElementById('go-to-present').addEventListener('click', () => {
+switchTab('present');
+initPresentationCharts();
+});
+document.getElementById('go-to-analyze-from-present').addEventListener('click', () => switchTab('analyze'));
+document.getElementById('view-responses').addEventListener('click', viewResponses);
+document.getElementById('regenerate-analysis').addEventListener('click', simulateAnalysis);
+document.getElementById('export-report').addEventListener('click', exportReport);
+
+// تنظیم اولیه
+loadPresetQuestions();
+initSimulation();
+init3DVisualization();
+});
+
+// تعویض تب
+function switchTab(tabId) {
+// غیرفعال کردن تب‌های قبلی
+document.querySelectorAll('.tab').forEach(tab => {
+tab.classList.remove('active');
+});
+document.querySelectorAll('.tab-content').forEach(content => {
+content.classList.remove('active');
+});
+
+// فعال کردن تب جدید
+document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+document.getElementById(tabId).classList.add('active');
+
+currentTab = tabId;
+}
+
+// اضافه کردن سوال جدید
+function addNewQuestion() {
+const newId = questions.length ? Math.max(...questions.map(q => q.id)) + 1 : 1;
+
+const newQuestion = {
+id: newId,
+text: "",
+type: "multiple",
+options: ["گزینه 1", "گزینه 2", "گزینه 3"]
+};
+
+questions.push(newQuestion);
+renderQuestions();
+}
+
+// بارگذاری سوالات پیش‌فرض
+function loadPresetQuestions() {
+questions = JSON.parse(JSON.stringify(presetQuestions));
+renderQuestions();
+}
+
+// نمایش سوالات
+function renderQuestions() {
+const container = document.getElementById('questions-container');
+container.innerHTML = '';
+
+questions.forEach(question => {
+const questionDiv = document.createElement('div');
+questionDiv.className = 'question-container';
+
+// هدر سوال
+const headerDiv = document.createElement('div');
+headerDiv.className = 'question-header';
+
+const questionNum = document.createElement('h3');
+questionNum.textContent = `سوال ${question.id}`;
+
+const deleteBtn = document.createElement('button');
+deleteBtn.textContent = 'حذف';
+deleteBtn.style.width = 'auto';
+deleteBtn.style.backgroundColor = 'var(--danger)';
+deleteBtn.addEventListener('click', () => {
+questions = questions.filter(q => q.id !== question.id);
+renderQuestions();
+});
+
+headerDiv.appendChild(questionNum);
+headerDiv.appendChild(deleteBtn);
+
+// متن سوال
+const questionText = document.createElement('input');
+questionText.type = 'text';
+questionText.placeholder = 'متن سوال را وارد کنید...';
+questionText.value = question.text;
+questionText.addEventListener('input', e => {
+question.text = e.target.value;
+});
+
+// نوع سوال
+const typeSelect = document.createElement('select');
+
+const typeOptions = [
+{ value: 'multiple', text: 'چند گزینه‌ای' },
+{ value: 'rating', text: 'امتیازدهی' },
+{ value: 'text', text: 'پاسخ متنی' }
+];
+
+typeOptions.forEach(opt => {
+const option = document.createElement('option');
+option.value = opt.value;
+option.textContent = opt.text;
+option.selected = question.type === opt.value;
+typeSelect.appendChild(option);
+});
+
+typeSelect.addEventListener('change', e => {
+question.type = e.target.value;
+
+if (question.type === 'rating') {
+question.options = ["1", "2", "3", "4", "5"];
+} else if (question.type === 'text') {
+question.options = [];
+} else if (!question.options.length) {
+question.options = ["گزینه 1", "گزینه 2", "گزینه 3"];
+}
+
+renderQuestions();
+});
+
+// گزینه‌ها (برای سوالات چند گزینه‌ای یا امتیازدهی)
+const optionsDiv = document.createElement('div');
+optionsDiv.className = 'options-container';
+
+if (question.type !== 'text') {
+const optionsLabel = document.createElement('label');
+optionsLabel.textContent = question.type === 'rating' ? 'مقیاس امتیازدهی:' : 'گزینه‌ها:';
+optionsDiv.appendChild(optionsLabel);
+
+question.options.forEach((option, index) => {
+const optionDiv = document.createElement('div');
+optionDiv.className = 'option-item';
+
+const optionInput = document.createElement('input');
+optionInput.type = 'text';
+optionInput.value = option;
+optionInput.addEventListener('input', e => {
+question.options[index] = e.target.value;
+});
+
+const removeBtn = document.createElement('button');
+removeBtn.innerHTML = '×';
+removeBtn.addEventListener('click', () => {
+question.options = question.options.filter((_, i) => i !== index);
+renderQuestions();
+});
+
+optionDiv.appendChild(optionInput);
+
+if (question.type !== 'rating') {
+optionDiv.appendChild(removeBtn);
+}
+
+optionsDiv.appendChild(optionDiv);
+});
+
+if (question.type !== 'rating') {
+const addOptionBtn = document.createElement('button');
+addOptionBtn.textContent = 'افزودن گزینه';
+addOptionBtn.style.marginTop = '10px';
+addOptionBtn.addEventListener('click', () => {
+question.options.push(`گزینه ${question.options.length + 1}`);
+renderQuestions();
+});
+
+optionsDiv.appendChild(addOptionBtn);
+}
+}
+
+// اضافه کردن همه عناصر به کانتینر سوال
+questionDiv.appendChild(headerDiv);
+questionDiv.appendChild(questionText);
+questionDiv.appendChild(document.createElement('br'));
+questionDiv.appendChild(document.createTextNode('نوع سوال:'));
+questionDiv.appendChild(typeSelect);
+questionDiv.appendChild(optionsDiv);
+
+container.appendChild(questionDiv);
+});
+}
+
+// کپی لینک
+function copyUrl() {
+const url = document.getElementById('response-url');
+navigator.clipboard.writeText(url.textContent)
+.then(() => {
+alert('لینک با موفقیت کپی شد!');
+})
+.catch(err => {
+console.error('خطا در کپی لینک:', err);
+});
+}
+
+// ذخیره سوالات
+function saveQuestions() {
+// در حالت واقعی، اینجا سوالات ذخیره می‌شوند
+alert('سوالات با موفقیت ذخیره شدند!');
+}
+
+// مشاهده پاسخ‌ها
+function viewResponses() {
+alert(`${responses.length} پاسخ تا کنون دریافت شده است.`);
+}
+
+// صادر کردن گزارش
+function exportReport() {
+alert('گزارش کامل با موفقیت دانلود شد!');
+}
+
+// شبیه‌سازی تحلیل
+function simulateAnalysis() {
+document.getElementById('analysis-in-progress').classList.remove('hidden');
+document.getElementById('analysis-complete').classList.add('hidden');
+
+setTimeout(() => {
+document.getElementById('analysis-in-progress').classList.add('hidden');
+document.getElementById('analysis-complete').classList.remove('hidden');
+
+// نمایش نمودارها
+initAnalysisCharts();
+
+analysisComplete = true;
+}, 2000);
+}
+
+// تنظیم نمودارهای تحلیل
+function initAnalysisCharts() {
+const ctx = document.getElementById('summary-chart').getContext('2d');
+
+new Chart(ctx, {
+type: 'radar',
+data: {
+labels: ['آمادگی دیجیتال', 'نوآوری', 'رضایت مشتری', 'کیفیت محصولات', 'خدمات پس از فروش', 'توسعه فناوری'],
+datasets: [{
+label: 'وضعیت فعلی',
+data: [3.2, 3.8, 4.1, 4.5, 4.2, 3.0],
+backgroundColor: 'rgba(0, 99, 167, 0.2)',
+borderColor: 'rgba(0, 99, 167, 1)',
+borderWidth: 2
+}, {
+label: 'هدف استراتژیک',
+data: [4.5, 4.7, 4.5, 4.8, 4.5, 4.7],
+backgroundColor: 'rgba(255, 107, 0, 0.2)',
+borderColor: 'rgba(255, 107, 0, 1)',
+borderWidth: 2
+}]
+},
+options: {
+scales: {
+r: {
+min: 0,
+max: 5,
+ticks: {
+stepSize: 1
+}
+}
+}
+}
+});
+}
+
+// تنظیم نمودارهای ارائه
+function initPresentationCharts() {
+const strategyCtx = document.getElementById('strategy-chart');
+const sentimentCtx = document.getElementById('sentiment-chart');
+
+new Chart(strategyCtx, {
+type: 'bar',
+data: {
+labels: ['توسعه محصولات هوشمند', 'آموزش نیروی انسانی', 'بهبود زیرساخت‌های دیجیتال', 'گسترش بازار', 'همکاری استراتژیک'],
+datasets: [{
+label: 'اولویت استراتژیک (1-10)',
+data: [8.7, 7.9, 7.6, 6.8, 6.2],
+backgroundColor: [
+'rgba(0, 99, 167, 0.8)',
+'rgba(0, 160, 227, 0.8)',
+'rgba(255, 107, 0, 0.8)',
+'rgba(255, 150, 50, 0.8)',
+'rgba(100, 100, 100, 0.8)'
+],
+borderWidth: 1
+}]
+},
+options: {
+indexAxis: 'y',
+scales: {
+x: {
+beginAtZero: true,
+max: 10
+}
+}
+}
+});
+
+new Chart(sentimentCtx, {
+type: 'doughnut',
+data: {
+labels: ['مثبت', 'خنثی', 'منفی'],
+datasets: [{
+data: [65, 25, 10],
+backgroundColor: [
+'rgba(40, 167, 69, 0.8)',
+'rgba(255, 193, 7, 0.8)',
+'rgba(220, 53, 69, 0.8)'
+],
+borderWidth: 1
+}]
+}
+});
+}
+
+// تنظیم شبیه‌سازی پاسخ‌ها
+function initSimulation() {
+responses = simulatedResponses;
+
+// به‌روزرسانی شمارنده پاسخ‌ها
+document.getElementById('response-count').textContent = responses.length;
+document.getElementById('participant-count').textContent = participantCount;
+
+// شبیه‌سازی دریافت پاسخ‌های جدید
+let timer = setInterval(() => {
+if (responses.length < participantCount) {
+const newResponse = generateRandomResponse();
+responses.push(newResponse);
+document.getElementById('response-count').textContent = responses.length;
+} else {
+clearInterval(timer);
+}
+}, 5000);
+}
+
+// تولید پاسخ تصادفی
+function generateRandomResponse() {
+const answers = {};
+
+questions.forEach(question => {
+if (question.type === 'text') {
+answers[question.id] = getRandomTextResponse(question.id);
+} else if (question.type === 'rating') {
+answers[question.id] = String(Math.floor(Math.random() * 5) + 1);
+} else {
+const randomIndex = Math.floor(Math.random() * question.options.length);
+answers[question.id] = question.options[randomIndex];
+}
+});
+
+return {
+timestamp: new Date(),
+answers: answers
+};
+}
+
+// دریافت پاسخ متنی تصادفی
+function getRandomTextResponse(questionId) {
+const textResponses = {
+6: [
+"توسعه سیستم‌های هوشمند تشخیص پزشکی",
+"گسترش بازار به کشورهای همسایه",
+"ادغام هوش مصنوعی در محصولات موجود",
+"همکاری با استارتاپ‌های فناوری پزشکی",
+"ارائه خدمات آنلاین تشخیص تصاویر پزشکی"
+],
+7: [
+"کمبود متخصصان هوش مصنوعی",
+"آشنایی ناکافی با فناوری‌های جدید تصویربرداری",
+"ضعف در تحلیل داده‌های بزرگ",
+"مهارت‌های بازاریابی دیجیتال",
+"دانش محدود در زمینه‌های نوین پزشکی دیجیتال"
+],
+14: [
+"تمرکز بیشتر بر آموزش نیروی انسانی",
+"همکاری با دانشگاه‌ها و مراکز تحقیقاتی",
+"سرمایه‌گذاری در زیرساخت‌های دیجیتال",
+"توسعه محصولات بومی مبتنی بر هوش مصنوعی",
+"ایجاد پلتفرم آنلاین برای ارائه خدمات به پزشکان"
+]
+};
+
+const options = textResponses[questionId] || ["پاسخ متنی تصادفی"];
+const randomIndex = Math.floor(Math.random() * options.length);
+return options[randomIndex];
+}
+
+// تنظیم ویژوالایزیشن سه‌بعدی
+function init3DVisualization() {
+const container = document.getElementById('threejs-container');
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setClearColor(0x000000, 1);
+container.appendChild(renderer.domElement);
+
+// افزودن نورها
+const ambientLight = new THREE.AmbientLight(0x404040);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(1, 1, 1);
+scene.add(directionalLight);
+
+// افزودن اشکال
+const shapes = [];
+const categories = ['هوش مصنوعی', 'تصویربرداری', 'خدمات', 'آموزش', 'بازاریابی'];
+const colors = [0x0063a7, 0x00a0e3, 0xff6b00, 0x28a745, 0xdc3545];
+
+categories.forEach((category, index) => {
+const geometry = new THREE.SphereGeometry(2 + Math.random() * 3, 32, 32);
+const material = new THREE.MeshPhongMaterial({ 
+color: colors[index],
+transparent: true,
+opacity: 0.8,
+shininess: 60
+});
+
+const sphere = new THREE.Mesh(geometry, material);
+sphere.position.x = (Math.random() - 0.5) * 30;
+sphere.position.y = (Math.random() - 0.5) * 30;
+sphere.position.z = (Math.random() - 0.5) * 30 - 50;
+
+sphere.userData = { category, value: 50 + Math.random() * 50 };
+
+scene.add(sphere);
+shapes.push(sphere);
+});
+
+// تنظیم دوربین
+camera.position.z = 15;
+
+// انیمیشن
+function animate() {
+requestAnimationFrame(animate);
+
+shapes.forEach(shape => {
+shape.rotation.x += 0.005;
+shape.rotation.y += 0.01;
+});
+
+camera.position.x = Math.sin(Date.now() * 0.0005) * 30;
+camera.position.z = Math.cos(Date.now() * 0.0005) * 30;
+camera.lookAt(scene.position);
+
+renderer.render(scene, camera);
+}
+
+animate();
+
+// مدیریت تغییر سایز
+window.addEventListener('resize', function() {
+camera.aspect = container.clientWidth / container.clientHeight;
+camera.updateProjectionMatrix();
+renderer.setSize(container.clientWidth, container.clientHeight);
+});
+}
+</script>
+</body>
+</html>
